@@ -16,12 +16,20 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class CourseController extends AbstractController
 {
     #[Route('/', name: 'app_course_index', methods: ['GET'])]
-    #[IsGranted(Role::Teacher->value)]
     public function index(CourseRepository $courseRepository): Response
+    {
+        return $this->render('course/index.html.twig', [
+            'courses' => $courseRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/instructor/{instructorId}', name: 'app_course_list_by_instructor', methods: ['GET'])]
+    #[IsGranted(Role::Teacher->value)]
+    public function listByInstructor(int $instructorId, CourseRepository $courseRepository): Response
     {
         $user = $this->getUser();
         return $this->render('course/index.html.twig', [
-            'courses' => $courseRepository->findByInstructorId($user->getId()),
+            'courses' => $courseRepository->findByInstructorId($instructorId),
         ]);
     }
 

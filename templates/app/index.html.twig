@@ -6,5 +6,4 @@
     {% endfor %}
 
     <h1>Hello {{ app.user.getEmail() }}!</h1>
-    <h2>You are a {{ app.user.getRoles()|join(', ') }}.</h2>
 {% endblock %}
