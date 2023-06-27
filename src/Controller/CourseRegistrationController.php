@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Course;
 use App\Entity\CourseRegistration;
 use App\Entity\Role;
+use App\Form\CourseRegistrationEditType;
 use App\Form\CourseRegistrationType;
 use App\Repository\CourseRegistrationRepository;
 use App\Repository\CourseRepository;
@@ -32,6 +33,15 @@ class CourseRegistrationController extends AbstractController
     {
         return $this->render('course_registration/index.html.twig', [
             'course_registrations' => $courseRegistrationRepository->findByStudentId($this->getUser()->getId()),
+        ]);
+    }
+
+    #[Route('/course/{courseId}', name: 'app_course_registration_by_course')]
+    #[IsGranted(Role::Teacher->value)]
+    public function listByCourse(int $courseId, CourseRegistrationRepository $courseRegistrationRepository): Response
+    {
+        return $this->render('course_registration/index.html.twig', [
+            'course_registrations' => $courseRegistrationRepository->findByCourseId($courseId),
         ]);
     }
 
@@ -70,13 +80,15 @@ class CourseRegistrationController extends AbstractController
     #[IsGranted(Role::Teacher->value)]
     public function edit(Request $request, CourseRegistration $courseRegistration, CourseRegistrationRepository $courseRegistrationRepository): Response
     {
-        $form = $this->createForm(CourseRegistrationType::class, $courseRegistration);
+        $form = $this->createForm(CourseRegistrationEditType::class, $courseRegistration);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $courseRegistrationRepository->save($courseRegistration, true);
 
-            return $this->redirectToRoute('app_course_registration_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_course_registration_by_course', [
+                'courseId' => $courseRegistration->getCourse()->getId()
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('course_registration/edit.html.twig', [

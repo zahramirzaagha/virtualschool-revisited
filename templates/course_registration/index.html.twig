@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}CourseRegistration index{% endblock %}
+{% block title %}Course registration index{% endblock %}
 
 {% block body %}
-    <h1>CourseRegistration index</h1>
+    <h1>Course registration index</h1>
 
     <table class="table">
         <thead>
@@ -18,7 +18,9 @@
                 <td>{{ course_registration.course.title }}</td>
                 <td>
                     <a href="{{ path('app_course_registration_show', {'id': course_registration.id}) }}">show</a>
-                    <a href="{{ path('app_course_registration_edit', {'id': course_registration.id}) }}">edit</a>
+                    {% if is_granted('ROLE_TEACHER') %}
+                        <a href="{{ path('app_course_registration_edit', {'id': course_registration.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Course{% endblock %}
+{% block title %}Edit course{% endblock %}
 
 {% block body %}
-    <h1>Edit Course</h1>
+    <h1>Edit course</h1>
 
     {{ include('course/_form.html.twig', {'button_label': 'Update'}) }}
     <a href="{{ path('app_course_index_by_instructor', {'instructorId': app.user.id}) }}">back to list</a>

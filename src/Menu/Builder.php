@@ -32,6 +32,9 @@ final class Builder
                 'routeParameters' => ['instructorId' => $this->security->getUser()->getId()]
             ]);
         }
+        if ($user && $user->hasRole(Role::Student->value)) {
+            $menu->addChild('Course registration', ['route' => 'app_course_registration_by_user']);
+        }
 
         return $menu;
     }

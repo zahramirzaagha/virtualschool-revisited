@@ -49,6 +49,16 @@ class CourseRegistrationRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findByCourseId(int $courseId): array
+    {
+        return $this->createQueryBuilder('cr')
+            ->join("cr.course", "c", "WITH", "c.id = :courseId")
+            ->setParameter('courseId', $courseId)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 //    public function findOneBySomeField($value): ?CourseRegistration
 //    {
 //        return $this->createQueryBuilder('c')
