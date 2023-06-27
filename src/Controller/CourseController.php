@@ -23,12 +23,12 @@ class CourseController extends AbstractController
         ]);
     }
 
-    #[Route('/instructor/{instructorId}', name: 'app_course_list_by_instructor', methods: ['GET'])]
+    #[Route('/instructor/{instructorId}', name: 'app_course_index_by_instructor', methods: ['GET'])]
     #[IsGranted(Role::Teacher->value)]
     public function listByInstructor(int $instructorId, CourseRepository $courseRepository): Response
     {
         $user = $this->getUser();
-        return $this->render('course/index.html.twig', [
+        return $this->render('course/teacher-course-index.html.twig', [
             'courses' => $courseRepository->findByInstructorId($instructorId),
         ]);
     }
@@ -45,17 +45,18 @@ class CourseController extends AbstractController
             $course->setInstructor($this->getUser());
             $courseRepository->save($course, true);
 
-            return $this->redirectToRoute('app_course_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_course_index_by_instructor', [
+                'instructorId' => $this->getUser()->getId()
+            ], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('course/new.html.twig', [
+        return $this->render('course/new.html.twig', [
             'course' => $course,
             'form' => $form,
         ]);
     }
 
     #[Route('/{id}', name: 'app_course_show', methods: ['GET'])]
-    #[IsGranted(Role::Teacher->value)]
     public function show(Course $course): Response
     {
         return $this->render('course/show.html.twig', [
@@ -76,7 +77,7 @@ class CourseController extends AbstractController
             return $this->redirectToRoute('app_course_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('course/edit.html.twig', [
+        return $this->render('course/edit.html.twig', [
             'course' => $course,
             'form' => $form,
         ]);
@@ -90,6 +91,8 @@ class CourseController extends AbstractController
             $courseRepository->remove($course, true);
         }
 
-        return $this->redirectToRoute('app_course_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_course_index_by_instructor', [
+            'instructorId' => $this->getUser()->getId()
+        ], Response::HTTP_SEE_OTHER);
     }
 }

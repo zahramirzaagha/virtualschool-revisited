@@ -18,9 +18,7 @@
                 <td>{{ course.title }}</td>
                 <td>
                     <a href="{{ path('app_course_show', {'id': course.id}) }}">show</a>
-                    {% if is_granted('ROLE_STUDENT') %}
-                        <a href="{{ path('app_course_registration_new', {'courseId': course.id}) }}">register</a>
-                    {% endif %}
+                    <a href="{{ path('app_course_edit', {'id': course.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -30,4 +28,6 @@
         {% endfor %}
         </tbody>
     </table>
+
+    <a href="{{ path('app_course_new') }}">Create new</a>
 {% endblock %}

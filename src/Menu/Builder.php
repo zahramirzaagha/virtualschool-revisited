@@ -27,8 +27,8 @@ final class Builder
         $menu->addChild('Home', ['route' => 'app_home']);
         $menu->addChild('Course', ['route' => 'app_course_index']);
         if ($user && $user->hasRole(Role::Teacher->value)) {
-            $menu['Course']->addChild('Teaching', [
-                'route' => 'app_course_list_by_instructor',
+            $menu->addChild('Course', [
+                'route' => 'app_course_index_by_instructor',
                 'routeParameters' => ['instructorId' => $this->security->getUser()->getId()]
             ]);
         }

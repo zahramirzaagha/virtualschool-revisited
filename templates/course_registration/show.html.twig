@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CourseRegistration{% endblock %}
+
+{% block body %}
+    <h1>CourseRegistration</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Course title</th>
+                <td>{{ course_registration.course.title }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_course_registration_by_user') }}">back to list</a>
+
+    <a href="{{ path('app_course_registration_edit', {'id': course_registration.id}) }}">edit</a>
+
+    {{ include('course_registration/_delete_form.html.twig') }}
+{% endblock %}
