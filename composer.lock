@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6224d4b29e50b4b160576146b01e2f49",
+    "content-hash": "f4112dbf89bec9549e858ceaa16dbedc",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -6834,16 +6834,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v6.3.0",
+            "version": "v6.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "6acdcd5c122074ee9f7b051e4fb177025c277a0e"
+                "reference": "c81268d6960ddb47af17391a27d222bd58cf0515"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/6acdcd5c122074ee9f7b051e4fb177025c277a0e",
-                "reference": "6acdcd5c122074ee9f7b051e4fb177025c277a0e",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/c81268d6960ddb47af17391a27d222bd58cf0515",
+                "reference": "c81268d6960ddb47af17391a27d222bd58cf0515",
                 "shasum": ""
             },
             "require": {
@@ -6896,7 +6896,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v6.3.0"
+                "source": "https://github.com/symfony/var-dumper/tree/v6.3.1"
             },
             "funding": [
                 {
@@ -6912,7 +6912,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-25T13:09:35+00:00"
+            "time": "2023-06-21T12:08:28+00:00"
         },
         {
             "name": "symfony/var-exporter",
@@ -7070,6 +7070,77 @@
                 }
             ],
             "time": "2023-04-21T14:41:17+00:00"
+        },
+        {
+            "name": "symfony/webpack-encore-bundle",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/webpack-encore-bundle.git",
+                "reference": "150fe022740fef908f4ca3d5950ce85ab040ec76"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/150fe022740fef908f4ca3d5950ce85ab040ec76",
+                "reference": "150fe022740fef908f4ca3d5950ce85ab040ec76",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1.0",
+                "symfony/asset": "^5.4 || ^6.2",
+                "symfony/config": "^5.4 || ^6.2",
+                "symfony/dependency-injection": "^5.4 || ^6.2",
+                "symfony/http-kernel": "^5.4 || ^6.2",
+                "symfony/service-contracts": "^1.1.9 || ^2.1.3 || ^3.0"
+            },
+            "require-dev": {
+                "symfony/framework-bundle": "^5.4 || ^6.2",
+                "symfony/phpunit-bridge": "^5.4 || ^6.2",
+                "symfony/twig-bundle": "^5.4 || ^6.2",
+                "symfony/web-link": "^5.4 || ^6.2"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "thanks": {
+                    "name": "symfony/webpack-encore",
+                    "url": "https://github.com/symfony/webpack-encore"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\WebpackEncoreBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Integration with your Symfony app & Webpack Encore!",
+            "support": {
+                "issues": "https://github.com/symfony/webpack-encore-bundle/issues",
+                "source": "https://github.com/symfony/webpack-encore-bundle/tree/v2.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-05-31T14:28:33+00:00"
         },
         {
             "name": "symfony/yaml",
