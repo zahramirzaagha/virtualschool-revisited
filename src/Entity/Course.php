@@ -102,6 +102,16 @@ class Course
         return true;
     }
 
+    public function getClassAverage(): ?float
+    {
+        if ($this->registrations->count() == 0)
+            return null;
+
+        return $this->registrations->reduce(function(int $sum, CourseRegistration $x): int {
+                return $sum + $x->getGrade();
+            }, 0) / $this->registrations->count();
+    }
+
     public function addRate(CourseRate $rate): static
     {
         if (!$this->rates->contains($rate)) {

@@ -17,6 +17,10 @@
                     <td>{{ course.instructor.email }}</td>
                 </tr>
             {% endif %}
+            <tr>
+                <th>Class average</th>
+                <td>{{ course.getClassAverage() }}</td>
+            </tr>
         </tbody>
     </table>
 
