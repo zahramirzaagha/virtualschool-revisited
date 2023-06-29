@@ -31,7 +31,7 @@
                         <script type="text/javascript">
                             $(document).ready(function() {
                                 $(".course-{{ course.id }}-rate").starRating({
-                                    initialRating: {{ course.getCourseRate(app.user.id) }},
+                                    initialRating: {{ course.getRate(app.user.id) }},
                                     useFullStars: true,
                                     starSize: 25,
                                     starShape: 'rounded',

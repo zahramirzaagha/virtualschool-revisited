@@ -36,6 +36,7 @@ final class Builder
                 'routeParameters' => ['instructorId' => $this->security->getUser()->getId()]
             ]);
         }
+        $menu->addChild('Stats', ['route' => 'app_stats']);
 
         return $menu;
     }

@@ -144,7 +144,12 @@ class Course
         }, 0) / $this->rates->count();
     }
 
-    public function getCourseRate(int $userId): ?int
+    public function getRates(): Array
+    {
+        return $this->rates->toArray();
+    }
+
+    public function getRate(int $userId): ?int
     {
         $rate = $this->rates->findFirst(function(int $key, CourseRate $x) use ($userId): bool {
             return $userId === $x->getRater()->getId();
