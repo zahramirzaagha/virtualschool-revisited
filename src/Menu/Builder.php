@@ -25,15 +25,16 @@ final class Builder
         $menu = $this->factory->createItem('root');
 
         $menu->addChild('Home', ['route' => 'app_home']);
-        $menu->addChild('Course', ['route' => 'app_course_index']);
-        if ($user && $user->hasRole(Role::Teacher->value)) {
-            $menu->addChild('Course', [
+        if ($user && !$user->hasRole(Role::Teacher->value))
+        {
+            $menu->addChild('Courses', ['route' => 'app_course_index']);
+        }
+        if ($user && $user->hasRole(Role::Teacher->value))
+        {
+            $menu->addChild('Courses I teach', [
                 'route' => 'app_course_index_by_instructor',
                 'routeParameters' => ['instructorId' => $this->security->getUser()->getId()]
             ]);
-        }
-        if ($user && $user->hasRole(Role::Student->value)) {
-            $menu->addChild('Course registration', ['route' => 'app_course_registration_by_user']);
         }
 
         return $menu;

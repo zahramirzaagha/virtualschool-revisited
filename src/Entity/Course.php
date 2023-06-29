@@ -19,15 +19,19 @@ class Course
     #[ORM\Column(length: 2048)]
     private ?string $title = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'courses')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $instructor = null;
+
+    #[OneToMany(mappedBy: 'course', targetEntity: CourseRegistration::class)]
+    private Collection $registrations;
 
     #[OneToMany(mappedBy: 'course', targetEntity: CourseRate::class)]
     private Collection $rates;
 
     public function __construct()
     {
+        $this->registrations = new ArrayCollection();
         $this->rates = new ArrayCollection();
     }
 
@@ -58,6 +62,44 @@ class Course
         $this->instructor = $instructor;
 
         return $this;
+    }
+
+    public function addRegistration(CourseRegistration $registration): static
+    {
+        if (!$this->registrations->contains($registration)) {
+            $this->registrations[] = $registration;
+        }
+
+        return $this;
+    }
+
+    public function removeRegistration(CourseRegistration $registration): static
+    {
+        if ($this->registrations->contains($registration)) {
+            $this->registrations->removeElement($registration);
+            // Set the owning side to null (unless already changed)
+            if ($registration->getCourse() === $this) {
+                $registration->setCourse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRegistrations(): Array
+    {
+        return $this->registrations->toArray();
+    }
+
+    public function isRegistered(int $userId): ?bool
+    {
+        $registration = $this->registrations->findFirst(function (int $key, CourseRegistration $x) use ($userId) {
+            return $userId == $x->getStudent()->getId();
+        });
+        if (null == $registration)
+            return false;
+
+        return true;
     }
 
     public function addRate(CourseRate $rate): static

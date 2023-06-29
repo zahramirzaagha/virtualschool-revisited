@@ -6,4 +6,7 @@
     {% endfor %}
 
     <h1>Hello {{ app.user.getEmail() }}!</h1>
+    {% if is_granted('ROLE_STUDENT') %}
+        {% include 'course_registration/index.html.twig' with {'course_registrations': app.user.getRegistrations()} %}
+    {% endif %}
 {% endblock %}

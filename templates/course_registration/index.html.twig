@@ -1,14 +1,15 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Course registration index{% endblock %}
-
 {% block body %}
-    <h1>Course registration index</h1>
+    <h3>Registrations</h3>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Course title</th>
+                <th>Course instructor</th>
+                {% if not is_granted('ROLE_STUDENT') %}
+                    <th>Student</th>
+                {% endif %}
+                <th>Grade</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -16,6 +17,11 @@
         {% for course_registration in course_registrations %}
             <tr>
                 <td>{{ course_registration.course.title }}</td>
+                <td>{{ course_registration.course.instructor.email }}</td>
+                {% if not is_granted('ROLE_STUDENT') %}
+                    <td>{{ course_registration.student.email }}</td>
+                {% endif %}
+                <td>{{ course_registration.grade }}</td>
                 <td>
                     <a href="{{ path('app_course_registration_show', {'id': course_registration.id}) }}">show</a>
                     {% if is_granted('ROLE_TEACHER') %}
@@ -25,7 +31,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="2">no records found</td>
+                <td colspan="2">no registrations found</td>
             </tr>
         {% endfor %}
         </tbody>

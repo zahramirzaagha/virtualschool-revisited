@@ -8,28 +8,33 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ course.id }}</td>
-            </tr>
-            <tr>
                 <th>Title</th>
                 <td>{{ course.title }}</td>
             </tr>
+            {% if not is_granted('ROLE_TEACHER') %}
+                <tr>
+                    <th>Instructor</th>
+                    <td>{{ course.instructor.email }}</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 
-    {% if is_granted('ROLE_STUDENT') %}
+    {% if is_granted('ROLE_TEACHER') %}
+        {% include 'course_registration/index.html.twig' with {'course_registrations': course.getRegistrations()} %}
+    {% endif %}
+
+    {% if is_granted('ROLE_STUDENT') and not course.isRegistered(app.user.id) %}
         <a href="{{ path('app_course_registration_new', {'courseId': course.id}) }}">register</a>
     {% endif %}
 
     {% if is_granted('ROLE_STUDENT') or is_granted('ROLE_PARENT') %}
-        <a href="{{ path('app_course_index') }}">back to list</a>
+        <a href="{{ path('app_course_index') }}">back to courses</a>
     {% endif %}
 
     {% if is_granted('ROLE_TEACHER') %}
-        <a href="{{ path('app_course_edit', {'id': course.id}) }}">edit</a>
-        <a href="{{ path('app_course_registration_by_course', {'courseId': course.id}) }}">registrations</a>
-        <a href="{{ path('app_course_index_by_instructor', {'instructorId': app.user.id}) }}">back to list</a>
+        <a href="{{ path('app_course_edit', {'id': course.id}) }}">edit course</a>
+        <a href="{{ path('app_course_index_by_instructor', {'instructorId': app.user.id}) }}">back to courses</a>
         {{ include('course/_delete_form.html.twig') }}
     {% endif %}
 {% endblock %}

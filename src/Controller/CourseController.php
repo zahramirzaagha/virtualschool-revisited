@@ -74,7 +74,9 @@ class CourseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $courseRepository->save($course, true);
 
-            return $this->redirectToRoute('app_course_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_course_index_by_instructor', [
+                'instructorId' => $this->getUser()->getId()
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('course/edit.html.twig', [

@@ -7,5 +7,5 @@
 
     {{ form(form) }}
 
-    <a href="{{ path('app_course_registration_by_course', {'courseId': course_registration.course.id}) }}">back to list</a>
+    <a href="{{ path('app_course_show', {'id': course_registration.course.id}) }}">back to course</a>
 {% endblock %}

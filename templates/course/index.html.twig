@@ -9,8 +9,11 @@
         <thead>
             <tr>
                 <th>Title</th>
+                <th>Instructor</th>
                 <th>Rate average</th>
-                <th>Rate</th>
+                {% if not is_granted('ROLE_TEACHER') %}
+                    <th>Rate</th>
+                {% endif %}
                 <th>actions</th>
             </tr>
         </thead>
@@ -18,37 +21,40 @@
         {% for course in courses %}
             <tr>
                 <td>{{ course.title }}</td>
+                <td>{{ course.instructor.email }}</td>
                 <td>{{ course.getAverageRate() }}</td>
-                <td>
-                    <div class="course-{{ course.id }}-rate"></div>
-                    <script type="text/javascript">
-                        $(document).ready(function() {
-                            $(".course-{{ course.id }}-rate").starRating({
-                                initialRating: {{ course.getCourseRate(app.user.id) }},
-                                useFullStars: true,
-                                starSize: 25,
-                                starShape: 'rounded',
-                                callback: function(currentRating){
-                                    $.ajax({
-                                        url: '{{ path('app_rate_new') }}',
-                                        method: 'POST',
-                                        data: {
-                                            courseId: {{ course.id }},
-                                            rate: currentRating
-                                        },
-                                        success: function(response, status, xhr) {
-                                        },
-                                        error: function(xhr, status, error) {
-                                        }
-                                    });
-                                }
+                {% if not is_granted('ROLE_TEACHER') %}
+                    <td>
+                        <div class="course-{{ course.id }}-rate"></div>
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $(".course-{{ course.id }}-rate").starRating({
+                                    initialRating: {{ course.getCourseRate(app.user.id) }},
+                                    useFullStars: true,
+                                    starSize: 25,
+                                    starShape: 'rounded',
+                                    callback: function(currentRating){
+                                        $.ajax({
+                                            url: '{{ path('app_rate_new') }}',
+                                            method: 'POST',
+                                            data: {
+                                                courseId: {{ course.id }},
+                                                rate: currentRating
+                                            },
+                                            success: function(response, status, xhr) {
+                                            },
+                                            error: function(xhr, status, error) {
+                                            }
+                                        });
+                                    }
+                                });
                             });
-                        });
-                    </script>
-                </td>
+                        </script>
+                    </td>
+                {% endif %}
                 <td>
                     <a href="{{ path('app_course_show', {'id': course.id}) }}">show</a>
-                    {% if is_granted('ROLE_STUDENT') %}
+                    {% if is_granted('ROLE_STUDENT') and not course.isRegistered(app.user.id) %}
                         <a href="{{ path('app_course_registration_new', {'courseId': course.id}) }}">register</a>
                     {% endif %}
                 </td>

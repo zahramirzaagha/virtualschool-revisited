@@ -20,11 +20,11 @@ class CourseRegistration
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(targetEntity: Course::class, inversedBy: 'registrations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Course $course = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'registrations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $student = null;
 
@@ -70,5 +70,10 @@ class CourseRegistration
         $this->grade = $grade;
 
         return $this;
+    }
+
+    public function canDrop(): bool
+    {
+        return $this->grade == null;
     }
 }

@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -32,6 +35,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
+
+    #[OneToMany(mappedBy: 'instructor', targetEntity: Course::class)]
+    private Collection $courses;
+
+    #[OneToMany(mappedBy: 'student', targetEntity: CourseRegistration::class)]
+    private Collection $registrations;
+
+    public function __construct()
+    {
+        $this->registrations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -116,6 +130,55 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function addRegistration(CourseRegistration $registration): static
+    {
+        if (!$this->registrations->contains($registration)) {
+            $this->registrations[] = $registration;
+        }
+
+        return $this;
+    }
+
+    public function removeRegistration(CourseRegistration $registration): static
+    {
+        if ($this->registrations->contains($registration)) {
+            $this->registrations->removeElement($registration);
+            // Set the owning side to null (unless already changed)
+            if ($registration->getStudent() === $this) {
+                $registration->setStudent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRegistrations(): Array
+    {
+        return $this->registrations->toArray();
+    }
+
+    public function addCourse(Course $course): static
+    {
+        if (!$this->courses->contains($course)) {
+            $this->courses[] = $course;
+        }
+
+        return $this;
+    }
+
+    public function removeCourse(Course $course): static
+    {
+        if ($this->courses->contains($course)) {
+            $this->courses->removeElement($course);
+            // Set the owning side to null (unless already changed)
+            if ($course->getInstructor() === $this) {
+                $course->setInstructor(null);
+            }
+        }
 
         return $this;
     }

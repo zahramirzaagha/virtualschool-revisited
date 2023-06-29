@@ -36,15 +36,6 @@ class CourseRegistrationController extends AbstractController
         ]);
     }
 
-    #[Route('/course/{courseId}', name: 'app_course_registration_by_course')]
-    #[IsGranted(Role::Teacher->value)]
-    public function listByCourse(int $courseId, CourseRegistrationRepository $courseRegistrationRepository): Response
-    {
-        return $this->render('course_registration/index.html.twig', [
-            'course_registrations' => $courseRegistrationRepository->findByCourseId($courseId),
-        ]);
-    }
-
     #[Route('/new/{courseId}', name: 'app_course_registration_new', methods: ['GET', 'POST'])]
     #[IsGranted(Role::Student->value)]
     public function new(Request $request, int $courseId, CourseRepository $courseRepository, CourseRegistrationRepository $courseRegistrationRepository): Response
@@ -59,7 +50,9 @@ class CourseRegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $courseRegistrationRepository->save($courseRegistration, true);
 
-            return $this->redirectToRoute('app_course_registration_by_user', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_course_show', [
+                'id' => $courseRegistration->getCourse()->getId()
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('course_registration/new.html.twig', [
@@ -86,8 +79,8 @@ class CourseRegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $courseRegistrationRepository->save($courseRegistration, true);
 
-            return $this->redirectToRoute('app_course_registration_by_course', [
-                'courseId' => $courseRegistration->getCourse()->getId()
+            return $this->redirectToRoute('app_course_show', [
+                'id' => $courseRegistration->getCourse()->getId()
             ], Response::HTTP_SEE_OTHER);
         }
 
@@ -105,6 +98,6 @@ class CourseRegistrationController extends AbstractController
             $courseRegistrationRepository->remove($courseRegistration, true);
         }
 
-        return $this->redirectToRoute('app_course_registration_by_user', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
     }
 }
