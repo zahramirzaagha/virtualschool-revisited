@@ -89,7 +89,7 @@ class StatsController extends AbstractController
         return $chartBuilder->createChart(Chart::TYPE_BAR)
             ->setData([
                 'labels' => array_map(function (User $student) {
-                    return $student->getEmail();
+                    return $student->getName();
                 }, $students),
                 'datasets' => [
                     [

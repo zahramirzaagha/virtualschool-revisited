@@ -14,7 +14,7 @@
             {% if not is_granted('ROLE_TEACHER') %}
                 <tr>
                     <th>Instructor</th>
-                    <td>{{ course.instructor.email }}</td>
+                    <td>{{ course.instructor.name }}</td>
                 </tr>
             {% endif %}
             <tr>

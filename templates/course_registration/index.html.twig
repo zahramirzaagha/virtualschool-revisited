@@ -17,9 +17,9 @@
         {% for course_registration in course_registrations %}
             <tr>
                 <td>{{ course_registration.course.title }}</td>
-                <td>{{ course_registration.course.instructor.email }}</td>
+                <td>{{ course_registration.course.instructor.name }}</td>
                 {% if not is_granted('ROLE_STUDENT') %}
-                    <td>{{ course_registration.student.email }}</td>
+                    <td>{{ course_registration.student.name }}</td>
                 {% endif %}
                 <td>{{ course_registration.grade }}</td>
                 <td>

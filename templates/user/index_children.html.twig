@@ -4,7 +4,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Email</th>
+                <th>Name</th>
                 <th>GPA</th>
                 <th>actions</th>
             </tr>
@@ -12,7 +12,7 @@
         <tbody>
         {% for child in app.user.getChildren() %}
             <tr>
-                <td>{{ child.email }}</td>
+                <td>{{ child.name }}</td>
                 <td>{{ child.getGpa() }}</td>
                 <td>
                     <a href="{{ path('app_course_registration_by_student', {'studentId': child.id}) }}">registrations</a>
