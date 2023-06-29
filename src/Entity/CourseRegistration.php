@@ -41,9 +41,10 @@ class CourseRegistration
         return $this->course;
     }
 
-    public function setCourse(Course $course): static
+    public function setCourse(?Course $course): static
     {
         $this->course = $course;
+        $course->addRegistration($this);
 
         return $this;
     }
@@ -53,9 +54,10 @@ class CourseRegistration
         return $this->student;
     }
 
-    public function setStudent(User $student): static
+    public function setStudent(?User $student): static
     {
         $this->student = $student;
+        $student->addRegistration($this);
 
         return $this;
     }

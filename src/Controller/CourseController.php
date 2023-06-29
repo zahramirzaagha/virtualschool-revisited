@@ -28,7 +28,7 @@ class CourseController extends AbstractController
     public function listByInstructor(int $instructorId, CourseRepository $courseRepository): Response
     {
         $user = $this->getUser();
-        return $this->render('course/teacher-course-index.html.twig', [
+        return $this->render('course/teacher_course_index.html.twig', [
             'courses' => $courseRepository->findByInstructorId($instructorId),
         ]);
     }

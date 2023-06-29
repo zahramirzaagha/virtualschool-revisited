@@ -22,17 +22,8 @@ class CourseRegistrationController extends AbstractController
     #[IsGranted(Role::Parent->value)]
     public function listByStudent(int $studentId, CourseRegistrationRepository $courseRegistrationRepository): Response
     {
-        return $this->render('course_registration/index.html.twig', [
+        return $this->render('course_registration/index_wrapped.html.twig', [
             'course_registrations' => $courseRegistrationRepository->findByStudentId($studentId),
-        ]);
-    }
-
-    #[Route('/student', name: 'app_course_registration_by_user')]
-    #[IsGranted(Role::Student->value)]
-    public function listByUser(CourseRegistrationRepository $courseRegistrationRepository): Response
-    {
-        return $this->render('course_registration/index.html.twig', [
-            'course_registrations' => $courseRegistrationRepository->findByStudentId($this->getUser()->getId()),
         ]);
     }
 

@@ -1,0 +1,28 @@
+{% block body %}
+    <h3>Children</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>GPA</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for child in app.user.getChildren() %}
+            <tr>
+                <td>{{ child.email }}</td>
+                <td>{{ child.getGpa() }}</td>
+                <td>
+                    <a href="{{ path('app_course_registration_by_student', {'studentId': child.id}) }}">registrations</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no registrations found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

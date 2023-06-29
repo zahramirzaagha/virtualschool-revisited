@@ -36,6 +36,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'children')]
+    private ?User $parent = null;
+
+    #[OneToMany(mappedBy: 'parent', targetEntity: User::class)]
+    private Collection $children;
+
     #[OneToMany(mappedBy: 'instructor', targetEntity: Course::class)]
     private Collection $courses;
 
@@ -44,6 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
+        $this->children = new ArrayCollection();
         $this->registrations = new ArrayCollection();
     }
 
@@ -134,6 +141,46 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getParent(): ?User
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?User $parent): static
+    {
+        $this->parent = $parent;
+        $parent->addChildren($this);
+
+        return $this;
+    }
+
+    private function addChildren(User $child): static
+    {
+        if (!$this->children->contains($child)) {
+            $this->children[] = $child;
+        }
+
+        return $this;
+    }
+
+    public function getChildren(): Array
+    {
+        return $this->children->toArray();
+    }
+
+    public function removeChildren(User $child): static
+    {
+        if ($this->children->contains($child)) {
+            $this->children->removeElement($child);
+            // Set the owning side to null (unless already changed)
+            if ($child->getParent() === $this) {
+                $child->setParent(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function addRegistration(CourseRegistration $registration): static
     {
         if (!$this->registrations->contains($registration)) {
@@ -159,6 +206,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRegistrations(): Array
     {
         return $this->registrations->toArray();
+    }
+
+    public function getGpa(): ?float
+    {
+        if ($this->registrations->count() == 0)
+            return null;
+
+        return $this->registrations->reduce(function(int $sum, CourseRegistration $x): int {
+                return $sum + $x->getGrade();
+            }, 0) / $this->registrations->count();
     }
 
     public function addCourse(Course $course): static

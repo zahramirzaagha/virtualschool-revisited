@@ -6,7 +6,12 @@
     {% endfor %}
 
     <h1>Hello {{ app.user.getEmail() }}!</h1>
+
     {% if is_granted('ROLE_STUDENT') %}
+        {% include 'user/show_parent.html.twig' %}
         {% include 'course_registration/index.html.twig' with {'course_registrations': app.user.getRegistrations()} %}
+    {% endif %}
+    {% if is_granted('ROLE_PARENT') %}
+        {% include 'user/index_children.html.twig' %}
     {% endif %}
 {% endblock %}
