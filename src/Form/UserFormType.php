@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Role;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -18,13 +19,16 @@ class UserFormType extends AbstractType
         $builder
             ->add('parent', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'email',
+                'choice_label' => 'name',
                 'choice_value' => function (?User $user): string {
                     return $user ? $user->getId() : '';
                 },
                 'query_builder' => function (UserRepository $userRepository): QueryBuilder {
-                    return $userRepository->createQueryBuilder('u')
-                        ->orderBy('u.email', 'ASC');
+                    $queryBuilder = $userRepository->createQueryBuilder('u');
+                    return $queryBuilder
+                        ->where($queryBuilder->expr()->like('u.roles', ':roles'))
+                        ->setParameter('roles', '%'.Role::Teacher->value.'%')
+                        ->orderBy('u.name', 'ASC');
                 }
             ])
             ->add('submit', SubmitType::class, [
