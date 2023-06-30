@@ -4,23 +4,25 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>GPA</th>
-                <th>actions</th>
+                <th>{{ 'name'|trans }}</th>
+                <th>{{ 'school'|trans }}</th>
+                <th>{{ 'gpa'|trans }}</th>
+                <th>{{ 'actions'|trans }}</th>
             </tr>
         </thead>
         <tbody>
         {% for child in app.user.getChildren() %}
             <tr>
                 <td>{{ child.name }}</td>
+                <td>{{ child.school }}</td>
                 <td>{{ child.getGpa() }}</td>
                 <td>
-                    <a href="{{ path('app_course_registration_by_student', {'studentId': child.id}) }}">registrations</a>
+                    <a href="{{ path('app_course_registration_by_student', {'studentId': child.id}) }}">{{ 'registrations'|trans }}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="2">no registrations found</td>
+                <td colspan="2">{{ 'no_records_found'|trans }}</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -159,4 +159,9 @@ class Course
 
         return $rate->getRate();
     }
+
+    public function canDelete(): bool
+    {
+        return $this->rates->count() == 0 && $this->registrations->count() == 0;
+    }
 }

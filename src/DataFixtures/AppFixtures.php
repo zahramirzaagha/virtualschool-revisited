@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Course;
 use App\Entity\Role;
+use App\Entity\School;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -28,6 +29,15 @@ class AppFixtures extends Fixture
         return strtolower($nameExploded[0]).'.'.strtolower($nameExploded[1]).'@gmail.com';
     }
 
+    private function getRandomSchoolString(): string
+    {
+        $schoolArray = array_map(function (School $school) {
+            return $school->value;
+        }, School::cases());
+
+        return $schoolArray[array_rand($schoolArray)];
+    }
+
     private function getRandomRoleString(): string
     {
         $roleArray = array_map(function (Role $role) {
@@ -50,6 +60,7 @@ class AppFixtures extends Fixture
             $user = new User();
             $user->setName($name);
             $user->setEmail($this->getEmail($name));
+            $user->setSchool($this->getRandomSchoolString());
             $user->setPassword("$2y$13$6ACfLHCivlArZrYfez3WROSkb.eAjKL.h6milLLRzjK5CuxqWLlgG");
             $user->setRoles([$this->getRandomRoleString()]);
             $user->setIsVerified(true);

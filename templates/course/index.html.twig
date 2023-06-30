@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Course index{% endblock %}
+{% block title %}{{ 'course_index'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Course index</h1>
+    <h1>{{ 'course_index'|trans }}</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Title</th>
-                <th>Instructor</th>
-                <th>Class average</th>
-                <th>Rate average</th>
+                <th>{{ 'course_title'|trans }}</th>
+                <th>{{ 'course_instructor'|trans }}</th>
+                <th>{{ 'course_class_average'|trans }}</th>
+                <th>{{ 'course_rate_average'|trans }}</th>
                 {% if not is_granted('ROLE_TEACHER') %}
-                    <th>Rate</th>
+                    <th>{{ 'course_rate'|trans }}</th>
                 {% endif %}
-                <th>actions</th>
+                <th>{{ 'actions'|trans }}</th>
             </tr>
         </thead>
         <tbody>
@@ -23,8 +23,8 @@
             <tr>
                 <td>{{ course.title }}</td>
                 <td>{{ course.instructor.name }}</td>
-                <td>{{ course.getClassAverage() }}</td>
-                <td>{{ course.getAverageRate() }}</td>
+                <td>{{ course.getClassAverage()|format_number(attrs={fraction_digit: 2}) }}</td>
+                <td>{{ course.getAverageRate()|format_number(attrs={fraction_digit: 2}) }}</td>
                 {% if not is_granted('ROLE_TEACHER') %}
                     <td>
                         <div class="course-{{ course.id }}-rate"></div>
@@ -55,15 +55,15 @@
                     </td>
                 {% endif %}
                 <td>
-                    <a href="{{ path('app_course_show', {'id': course.id}) }}">show</a>
+                    <a href="{{ path('app_course_show', {'id': course.id}) }}">{{ 'show'|trans }}</a>
                     {% if is_granted('ROLE_STUDENT') and not course.isRegistered(app.user.id) %}
-                        <a href="{{ path('app_course_registration_new', {'courseId': course.id}) }}">register</a>
+                        <a href="{{ path('app_course_registration_new', {'courseId': course.id}) }}">{{ 'register_course'|trans }}</a>
                     {% endif %}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">{{ 'no_records_found'|trans }}</td>
             </tr>
         {% endfor %}
         </tbody>

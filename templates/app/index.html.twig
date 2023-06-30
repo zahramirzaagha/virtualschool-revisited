@@ -5,7 +5,11 @@
         <div class="alert alert-success" role="alert">{{ flash_success }}</div>
     {% endfor %}
 
-    <h1>Hello {{ app.user.name }}!</h1>
+    {% if app.user %}
+        <h1>{{ 'say_hello'|trans({'name': app.user.name, 'roles': app.user.getRolesString()}) }}</h1>
+    {%  else %}
+        <h1>{{ 'say_hello_visitor'|trans }}</h1>
+    {% endif %}
 
     {% if is_granted('ROLE_STUDENT') %}
         {% include 'user/show_parent.html.twig' %}

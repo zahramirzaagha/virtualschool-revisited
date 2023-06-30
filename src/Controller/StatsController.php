@@ -13,9 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
 
+#[Route('/{_locale}/stats')]
 class StatsController extends AbstractController
 {
-    #[Route('/stats', name: 'app_stats')]
+    #[Route('/', name: 'app_stats')]
     public function index(ChartBuilderInterface $chartBuilder, CourseRepository $courseRepository, UserRepository $userRepository): Response
     {
         $courses = $courseRepository->findAll();

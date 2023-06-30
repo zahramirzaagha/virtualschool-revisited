@@ -1,18 +1,18 @@
 {% block body %}
-    <h3>Parent</h3>
+    <h3>{{ 'parent'|trans }}</h3>
 
     {% if app.user.getParent() %}
         <table class="table">
             <tbody>
                 <tr>
-                    <th>Name</th>
+                    <th>{{ 'parent_name'|trans }}</th>
                     <td>{{ app.user.getParent().name }}</td>
                 </tr>
             </tbody>
         </table>
     {% else %}
-        <h6>No parent</h6>
+        <h6>{{ 'no_parent'|trans }}</h6>
     {% endif %}
 
-    <a href="{{ path('app_user_edit', {'id': app.user.id}) }}">edit</a>
+    <a href="{{ path('app_user_edit', {'id': app.user.id}) }}">{{ 'edit'|trans }}</a>
 {% endblock %}

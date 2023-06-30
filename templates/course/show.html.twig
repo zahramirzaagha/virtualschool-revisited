@@ -3,23 +3,27 @@
 {% block title %}Course{% endblock %}
 
 {% block body %}
-    <h1>Course</h1>
+    <h1>{{ 'course'|trans }}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Title</th>
+                <th>{{ 'course_title'|trans }}</th>
                 <td>{{ course.title }}</td>
             </tr>
             {% if not is_granted('ROLE_TEACHER') %}
                 <tr>
-                    <th>Instructor</th>
+                    <th>{{ 'course_instructor'|trans }}</th>
                     <td>{{ course.instructor.name }}</td>
                 </tr>
             {% endif %}
             <tr>
-                <th>Class average</th>
-                <td>{{ course.getClassAverage() }}</td>
+                <th>{{ 'course_rate'|trans }}</th>
+                <td>{{ course.getAverageRate()|format_number(attrs={fraction_digit: 2}) }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'course_class_average'|trans }}</th>
+                <td>{{ course.getClassAverage()|format_number(attrs={fraction_digit: 2}) }}</td>
             </tr>
         </tbody>
     </table>
@@ -29,16 +33,18 @@
     {% endif %}
 
     {% if is_granted('ROLE_STUDENT') and not course.isRegistered(app.user.id) %}
-        <a href="{{ path('app_course_registration_new', {'courseId': course.id}) }}">register</a>
+        <a href="{{ path('app_course_registration_new', {'courseId': course.id}) }}">{{ 'register_course'|trans }}</a>
     {% endif %}
 
     {% if is_granted('ROLE_STUDENT') or is_granted('ROLE_PARENT') %}
-        <a href="{{ path('app_course_index') }}">back to courses</a>
+        <a href="{{ path('app_course_index') }}">{{ 'back_to_courses'|trans }}</a>
     {% endif %}
 
     {% if is_granted('ROLE_TEACHER') %}
-        <a href="{{ path('app_course_edit', {'id': course.id}) }}">edit course</a>
-        <a href="{{ path('app_course_index_by_instructor', {'instructorId': app.user.id}) }}">back to courses</a>
-        {{ include('course/_delete_form.html.twig') }}
+        <a href="{{ path('app_course_edit', {'id': course.id}) }}">{{ 'edit_course'|trans }}</a>
+        <a href="{{ path('app_course_index_by_instructor', {'instructorId': app.user.id}) }}">{{ 'back_to_courses'|trans }}</a>
+        {% if course.canDelete() %}
+            {{ include('course/_delete_form.html.twig') }}
+        {% endif %}
     {% endif %}
 {% endblock %}

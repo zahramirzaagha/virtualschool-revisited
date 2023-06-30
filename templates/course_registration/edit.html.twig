@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit course registration{% endblock %}
+{% block title %}{{ 'edit_course_registration'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Edit course registration</h1>
+    <h1>{{ 'edit_course_registration'|trans }}</h1>
 
     {{ form(form) }}
 
-    <a href="{{ path('app_course_show', {'id': course_registration.course.id}) }}">back to course</a>
+    <a href="{{ path('app_course_show', {'id': course_registration.course.id}) }}">{{ 'back_to_courses'|trans }}</a>
 {% endblock %}

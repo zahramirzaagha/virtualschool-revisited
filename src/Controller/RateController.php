@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/rate')]
+#[Route('/{_locale}/rate')]
 class RateController extends AbstractController
 {
     #[Route('/new', name: 'app_rate_new', methods: ["POST"])]

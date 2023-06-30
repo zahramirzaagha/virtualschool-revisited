@@ -27,6 +27,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $school = null;
+
     #[ORM\Column]
     private array $roles = [];
 
@@ -86,6 +89,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getSchool(): ?string
+    {
+        return $this->school;
+    }
+
+    public function setSchool(string $school): static
+    {
+        $this->school = $school;
+
+        return $this;
+    }
+
     /**
      * A visual identifier that represents this user.
      *
@@ -113,6 +128,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->roles = $roles;
 
         return $this;
+    }
+
+    public function getRolesString(): string
+    {
+        if (count($this->roles) == 1)
+            return Role::from($this->roles[0])->name;
+
+        if (count($this->roles) > 1)
+            return implode(' and a ', array_map(function (string $roleString) {
+                return Role::from($roleString)->name;
+            }, $this->roles));
+
+        return 'visitor';
     }
 
     public function hasRole(string $role): bool

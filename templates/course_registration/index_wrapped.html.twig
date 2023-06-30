@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Registrations{% endblock %}
+{% block title %}{{ 'course_registrations'|trans }}{% endblock %}
 
 {% block body %}
     {% include 'course_registration/index.html.twig' with {'course_registrations': course_registrations} %}

@@ -1,0 +1,87 @@
+menu_home: Accueil
+menu_courses: Cours
+menu_courses_i_teach: "Cours que j'enseigne"
+menu_statistics: Statistiques
+menu_logout: Déconnexion
+menu_register: Enregistrer
+menu_login: Connexion
+say_hello: 'Bonjour {name}! Vous êtes un(e) {roles}.'
+say_hello_visitor: 'Bonjour visiteur!'
+confirm_delete: 'Êtes-vous sûr(e) de vouloir supprimer cet élément?'
+delete: Supprimer
+save: Enregistrer
+back_to_courses: 'Retour aux cours'
+Edit_course: 'Modifier le cours'
+edit_course: 'modifier le cours'
+update: 'Mettre à jour'
+course_index: 'Index des cours'
+course_title: Titre
+course_instructor: Enseignant
+course_class_average: 'Moyenne de la classe'
+course_rate_average: 'Moyenne des évaluations'
+course_rate: Évaluer
+actions: Actions
+show: Afficher
+register_course: "S'inscrire"
+no_records_found: 'Aucun enregistrement trouvé'
+new_course: 'Nouveau cours'
+course: Cours
+edit: Modifier
+create_new: 'Créer un nouveau'
+drop_course: Abandonner
+edit_course_registration: "Modifier l'inscription au cours"
+course_registrations: Inscriptions
+course_registration_grade: Note
+new_course_registration: 'Nouvelle inscription au cours'
+back_to_home: "Retour à l'accueil"
+confirm_your_email: 'Bonjour ! Veuillez confirmer votre adresse e-mail!'
+confirm_your_email_follow_link: 'Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant:'
+confirm_my_email: 'Confirmer mon adresse e-mail'
+cheers: 'Cheers!'
+password_reset_email_sent: 'E-mail de réinitialisation du mot de passe envoyé'
+if_your_email_exists: "Si un compte correspondant à votre adresse e-mail existe, un e-mail vient d'être envoyé avec un lien permettant de réinitialiser votre mot de passe. Ce lien expirera dans"
+if_you_dont_receive_email: "Si vous ne recevez pas l'e-mail, veuillez vérifier votre dossier de courrier indésirable ou"
+register_user: "S'inscrire"
+password: "Mot de passe"
+i_am_a: 'Je suis un(e)'
+reset_your_password: 'Réinitialisez votre mot de passe'
+enter_your_email: 'Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.'
+send_password_reset_email: 'Envoyer un e-mail de réinitialisation du mot de passe'
+reset_password: 'Réinitialiser le mot de passe'
+try_again: 'Réessayer'
+hi: 'Salut!'
+to_reset_password: 'Pour réinitialiser votre mot de passe, veuillez visiter le lien suivant'
+link_expires_in: 'Ce lien expirera dans'
+login: 'Se connecter!'
+logged_in_as: 'Vous êtes connecté en tant que'
+logout: Déconnexion
+please_sign_in: 'Veuillez vous connecter'
+email: 'E-mail'
+we_never_share_email: 'Nous ne partagerons jamais votre e-mail avec qui que ce soit.'
+forgot_password: 'Mot de passe oublié?'
+sign_in: 'Se connecter'
+student_performance: "Performance de l'étudiant"
+submit: Soumettre
+course_register: Enregistrer
+please_enter_your_email: 'Veuillez saisir votre e-mail'
+declare_parent: 'Déclarer parent'
+parent: Parente
+parent_name: Nom
+no_parent: 'Aucun parent'
+new_password: 'Nouveau mot de passe'
+repeat_password: 'Répéter le mot de passe'
+enter_password: 'Veuillez entrer un mot de passe'
+password_min_limit: "Votre mot de passe doit comporter au moins '{{' limit '}}' caractères"
+password_must_match: 'Les champs de mot de passe doivent correspondre.'
+name: Nom
+school: École
+gpa: MG
+please_enter_your_name: "S'il vous plaît entrez votre nom"
+please_enter_your_school: 'Veuillez entrer votre école'
+agree_to_terms: 'Accepter les termes'
+should_agree_to_terms: 'Vous devez accepter nos conditions.'
+please_enter_your_role: 'Veuillez sélectionner votre (vos) rôle(s)'
+registrations: inscriptions
+no_registrations_found: 'Aucune inscription trouvée'
+course_registration: "L'inscription aux cours"
+enter_course_title: 'Please enter a course title'

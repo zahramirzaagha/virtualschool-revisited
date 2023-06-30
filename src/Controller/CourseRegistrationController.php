@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/course-registration')]
+#[Route('/{_locale}/course-registration')]
 class CourseRegistrationController extends AbstractController
 {
     #[Route('/student/{studentId}', name: 'app_course_registration_by_student')]

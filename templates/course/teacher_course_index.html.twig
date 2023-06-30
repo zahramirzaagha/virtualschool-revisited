@@ -1,35 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Course index{% endblock %}
+{% block title %}{{ 'course_index'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Course index</h1>
+    <h1>{{ 'course_index'|trans }}</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Title</th>
-                <th>Class average</th>
-                <th>actions</th>
+                <th>{{ 'course_title'|trans }}</th>
+                <th>{{ 'course_class_average'|trans }}</th>
+                <th>{{ 'actions'|trans }}</th>
             </tr>
         </thead>
         <tbody>
         {% for course in courses %}
             <tr>
                 <td>{{ course.title }}</td>
-                <td>{{ course.getClassAverage() }}</td>
+                <td>{{ course.getClassAverage()|format_number(attrs={fraction_digit: 2}) }}</td>
                 <td>
-                    <a href="{{ path('app_course_show', {'id': course.id}) }}">show</a>
-                    <a href="{{ path('app_course_edit', {'id': course.id}) }}">edit</a>
+                    <a href="{{ path('app_course_show', {'id': course.id}) }}">{{ 'show'|trans }}</a>
+                    <a href="{{ path('app_course_edit', {'id': course.id}) }}">{{ 'edit'|trans }}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">{{ 'no_records_found'|trans }}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_course_new') }}">Create new</a>
+    <a href="{{ path('app_course_new') }}">{{ 'create_new'|trans }}</a>
 {% endblock %}

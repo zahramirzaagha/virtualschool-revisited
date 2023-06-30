@@ -2,15 +2,15 @@
 
 {% block body %}
 <div>
-    <h1>Course rate</h1>
+    <h1>{{ 'course_rate'|trans }}</h1>
     <div style="width:800px;height:800px">
         {{ render_chart(course_rate_chart) }}
     </div>
-    <h1>Class average</h1>
+    <h1>{{ 'course_class_average'|trans }}</h1>
     <div style="width:800px;height:800px">
         {{ render_chart(class_average_chart) }}
     </div>
-    <h1>Student performance</h1>
+    <h1>{{ 'student_performance'|trans }}</h1>
     <div style="width:800px;height:800px">
         {{ render_chart(student_performance_chart) }}
     </div>

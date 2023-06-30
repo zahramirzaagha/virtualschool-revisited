@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Declare parent{% endblock %}
+{% block title %}{{ 'declare_parent'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Declare parent</h1>
+    <h1>{{ 'declare_parent'|trans }}</h1>
 
     {{ form(form) }}
 
-    <a href="{{ path('app_home') }}">back to home</a>
+    <a href="{{ path('app_home') }}">{{ 'back_to_home'|trans }}</a>
 {% endblock %}
