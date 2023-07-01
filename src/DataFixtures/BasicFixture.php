@@ -9,8 +9,11 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class AppFixtures extends Fixture
+class BasicFixture extends Fixture
 {
+    const NUM_OF_USERS = 20;
+    const NUM_OF_COURSES = 20;
+
     public function load(ObjectManager $manager): void
     {
         $users = iterator_to_array($this->getUsers());
