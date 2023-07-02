@@ -84,4 +84,6 @@ please_enter_your_role: 'Veuillez sélectionner votre (vos) rôle(s)'
 registrations: inscriptions
 no_registrations_found: 'Aucune inscription trouvée'
 course_registration: "L'inscription aux cours"
-enter_course_title: 'Please enter a course title'
+enter_course_title: 'Veuillez entrer un titre de cours'
+course_comments: 'Commentaires'
+no_comments: 'Sans commentaires'

@@ -29,6 +29,9 @@ class Course
     #[OneToMany(mappedBy: 'course', targetEntity: CourseRate::class)]
     private Collection $rates;
 
+    #[OneToMany(mappedBy: 'course', targetEntity: Comment::class)]
+    private Collection $comments;
+
     public function __construct()
     {
         $this->registrations = new ArrayCollection();
@@ -158,6 +161,33 @@ class Course
             return 0;
 
         return $rate->getRate();
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // Set the owning side to null (unless already changed)
+            if ($comment->getCourse() === $this) {
+                $comment->setCourse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getComments(): Array
+    {
+        return $this->comments->toArray();
     }
 
     public function canDelete(): bool

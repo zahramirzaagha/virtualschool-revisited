@@ -86,4 +86,6 @@ please_enter_your_role: 'Please select your role(s)'
 registrations: registrations
 no_registrations_found: 'No registrations found'
 course_registration: 'Course registration'
-enter_course_title: 'Veuillez entrer un titre de cours'
+enter_course_title: 'Please enter a course title'
+course_comments: 'Comments'
+no_comments: 'no comment'

@@ -48,7 +48,7 @@ class BasicFixture extends Fixture
         }, Role::cases());
         $roleArrayFiltered = array_values(
             array_filter($roleArray, function (string $role) {
-                return Role::Rater->value != $role;
+                return Role::RaterCommenter->value != $role;
             })
         );
 
@@ -63,9 +63,11 @@ class BasicFixture extends Fixture
             $user = new User();
             $user->setName($name);
             $user->setEmail($this->getEmail($name));
-            $user->setSchool($this->getRandomSchoolString());
             $user->setPassword("$2y$13$6ACfLHCivlArZrYfez3WROSkb.eAjKL.h6milLLRzjK5CuxqWLlgG");
-            $user->setRoles([$this->getRandomRoleString()]);
+            $role = $this->getRandomRoleString();
+            if (Role::Student->value == $role)
+                $user->setSchool($this->getRandomSchoolString());
+            $user->setRoles([$role]);
             $user->setIsVerified(true);
 
             yield $user;

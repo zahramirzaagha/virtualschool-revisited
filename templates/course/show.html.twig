@@ -25,6 +25,11 @@
                 <th>{{ 'course_class_average'|trans }}</th>
                 <td>{{ course.getClassAverage()|format_number(attrs={fraction_digit: 2}) }}</td>
             </tr>
+            {% if not is_granted('ROLE_TEACHER') %}
+                <tr>
+                    <td>{{ include('comment/index.html.twig', {'comments': course.getComments()}) }}</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 

@@ -1,0 +1,54 @@
+{% block body %}
+    <h3>{{ 'course_comments'|trans }}</h3>
+
+    <table class="table">
+        <tbody id="comments">
+            {% for comment in comments %}
+                <tr>
+                    <th>{{ comment.user.name }}</th>
+                    <td>{{ comment.text }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">{{ 'no_comments'|trans }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <table class="table">
+        <tr>
+            <td><textarea rows="4" id="comment"></textarea></td>
+        </tr>
+        <tr>
+            <button type="button" class="btn btn-primary" id="btn-submit-comment">{{ 'submit'|trans }}</button>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $("#btn-submit-comment").on('click', function() {
+                        $.ajax({
+                            url: '{{ path('app_comment_new') }}',
+                            method: 'POST',
+                            data: {
+                                courseId: {{ course.id }},
+                                text: $('#comment').val()
+                            },
+                            success: function(response, status, xhr) {
+                                $('#comments').empty();
+                                $.each(JSON.parse(response).comments, function (index, comment) {
+                                    let tr = `
+                                        <tr>
+                                            <th>${comment.username}</th>
+                                            <td>${comment.text}</td>
+                                        </tr>
+                                    `;
+                                    $('#comments').append(tr);
+                                })
+                            },
+                            error: function(xhr, status, error) {
+                            }
+                        });
+                    });
+                });
+            </script>
+        </tr>
+    </table>
+{% endblock %}
